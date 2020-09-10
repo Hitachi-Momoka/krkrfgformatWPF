@@ -37,7 +37,7 @@ namespace Li.Krkr.krkrfgformatWPF.ViewModes
                 }
             }
             string ruleFileName = sb.ToString();
-            foreach (var format in SupportedFormat.RuleDataFormat)
+            foreach (var format in SupportedFileExtension.RuleDataExtension)
             {
                 string tmpPath = $"{dir}\\{ruleFileName}{format}";
                 if (File.Exists(tmpPath))

@@ -51,19 +51,4 @@ namespace Li.Krkr.krkrfgformatWPF
             //return value==null ? null : ((SelectedItemWithIndexModel)value).SelectedItem;
         }
     }
-    //最后的图片合成
-    class AllDataToImage : IMultiValueConverter
-    {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (values[2] != null)
-                return new BitmapImage(new Uri(((SelectedItemWithIndexModel)values[2]).SelectedItem.ToString()));
-            return null;
-        }
-
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
 }

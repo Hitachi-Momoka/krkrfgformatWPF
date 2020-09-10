@@ -14,21 +14,6 @@ namespace Li.Drawing.Wpf
 {
     public class WPFPictureHelper
     {
-        public static ImageSource MixPicture(BitmapSource image1, BitmapSource image2, Rect rect1, Rect rect2,int opacity1, int opacity2)
-        {
-            DrawingGroup group1 = new DrawingGroup() { Opacity = opacity1 / 255.0 };
-            group1.Children.Add(new ImageDrawing(image1, rect1));
-            DrawingGroup group2 = new DrawingGroup() { Opacity = opacity2 / 255.0 };
-            group2.Children.Add(new ImageDrawing(image2, rect2));
-
-            DrawingGroup group = new DrawingGroup();
-            group.Children.Add(group1);
-            group.Children.Add(group2);
-
-            return new DrawingImage() { Drawing = group };
-
-            //throw new NotSupportedException();
-        }
         public static BitmapSource CreatAnEmptyBitmapSourceBySize(int width, int height)
         {
             if(width <= 0 || height <= 0)
@@ -64,12 +49,14 @@ namespace Li.Drawing.Wpf
             bmp.Render(drawingVisual);
             return bmp;
         }
+        
         public static DrawingImage BitmapSourceToDrawingImage(BitmapSource source)
         {
             Rect imageRect = new Rect(0, 0, source.PixelWidth, source.PixelHeight);
             ImageDrawing drawing = new ImageDrawing(source, imageRect);
             return new DrawingImage(drawing);
         }
+        
         public static ImageSource CutImageBlank(BitmapSource source)
         {
             int keep = 4;

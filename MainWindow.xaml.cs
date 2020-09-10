@@ -38,6 +38,13 @@ namespace Li.Krkr.Fgformat
             {
                 Style = (Style)FindResource("mylistbox") ?? default
             };
+            box1.SetBinding(ListBox.SelectedItemProperty, new Binding()
+            {
+                Path = new PropertyPath("SelectItemTmp"),
+                Mode = BindingMode.TwoWay,
+                Converter = new SelectedItemCombineIndexConverter(),
+                ConverterParameter = index
+            });
             fileGrid.Children.Insert(index, box1);
         }
 

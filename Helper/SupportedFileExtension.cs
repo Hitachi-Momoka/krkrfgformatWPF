@@ -8,7 +8,7 @@ namespace Li.Krkr.krkrfgformatWPF.Helper
 {
     public static class SupportedFormat
     {
-        public static readonly string[] RuleDataFormat = new string[2] { "txt", "json" };
-        public static readonly string[] ImageFormat = new string[2] { ".png", "tlg" };
+        public static readonly string[] RuleDataExtension = new string[3] { ".txt", ".json" ,".pbd.json"};
+        public static readonly string[] ImageExtension = new string[3] { ".png", ".tlg", ".tlg.png" };
     }
 }

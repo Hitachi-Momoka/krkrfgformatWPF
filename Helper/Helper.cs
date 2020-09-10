@@ -13,7 +13,7 @@ namespace Li.Krkr.krkrfgformatWPF.Helper
     {
         public static int GetFileCode(string path)
         {
-            var part = System.IO.Path.GetFileNameWithoutExtension(path).Split('_');
+            var part = System.IO.Path.GetFileName(path).Split('.')[0].Split('_');
             return Convert.ToInt32(part[part.Length - 1]);
         }
     }

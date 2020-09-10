@@ -39,7 +39,7 @@ namespace Li.Krkr.krkrfgformatWPF.ViewModes
             string ruleFileName = sb.ToString();
             foreach (var format in SupportedFormat.RuleDataFormat)
             {
-                string tmpPath = $"{dir}\\{ruleFileName}.{format}";
+                string tmpPath = $"{dir}\\{ruleFileName}{format}";
                 if (File.Exists(tmpPath))
                     return tmpPath;
             }
@@ -109,17 +109,9 @@ namespace Li.Krkr.krkrfgformatWPF.ViewModes
             SaveName = strtmp;
             
             BitmapSource source = WPFPictureHelper.DrawingImageToBitmapSource(mixer.OutImage);
-            //CutImageBlankHandler handler = WPFPictureHelper.CutImageBlank;
-            //IAsyncResult result = handler.BeginInvoke(source, new AsyncCallback(this.CallBack), null); 
             this.ImageBoxSource = WPFPictureHelper.CutImageBlank(source);
             //GC.Collect();
         }
-        //public void CallBack(IAsyncResult result)
-        //{
-        //    CutImageBlankHandler handler = ((AsyncResult)result).AsyncDelegate as CutImageBlankHandler;
-        //    handler.EndInvoke(result);
-        //    this.ImageBoxSource = result.AsyncState as BitmapSource;
-        //}
 
         private void WithoutRuleDataMode()
         {

@@ -4,6 +4,6 @@ KRKR2/Z引擎的分散立绘和成工具的WPF版本。MVVM模式练手写的。
 
 支持txt文件以及zlib压缩后的txt文件。
 
-支持[KrkrExtract](https://github.com/xmoeproject/KrkrExtract)由pdb转换成的json文件，前提是把生成的文件的所有文件的原文件格式文件名尾巴去掉。
+支持[KrkrExtract](https://github.com/xmoeproject/KrkrExtract)由pdb转换成的json文件。
 
 有用到[Prism](https://github.com/PrismLibrary/Prism/tree/master/src/Prism.Core)不过不会用git就直接上传了原文件。

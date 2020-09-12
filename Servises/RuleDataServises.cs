@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -21,22 +21,53 @@ namespace Li.Krkr.krkrfgformatWPF.Servises
             }
             FileStream fs = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.Read);
             BinaryReader br = new BinaryReader(fs);
-            var array = br.ReadBytes(5);
-            if (System.Linq.Enumerable.SequenceEqual(array, new byte[] { 0xFE, 0XFE, 0X02, 0XFF, 0XFE }))
+            var header = br.ReadBytes(5);
+            int index = 0;
+            uint signature = (uint)(header[index] | (header[index + 1] << 8) | (header[index + 2] << 16) | (header[index + 3] << 24));
+            if ((signature & 0xFF00FFFFu) == 0xFF00FEFEu && header[2] < 3 && 0xFE == header[4])
             {
-                return CreatFromeBinaryFile(fs,br);
+                if (2 == header[2])
+                    return CreatFromeZlibFile(fs, br);
+                else if (1 == header[2])
+                {
+                    //br.Close();
+                    return CreatFromeCryptFile(fs);
+                }
             }
-            Encoding encoding = (array[1] == 0) ? Encoding.Unicode : Encoding.UTF8;
+            Encoding encoding = (header[1] == 0) ? Encoding.Unicode : Encoding.UTF8;
             
             return CreatFromTextFile(fs, encoding);
         }
+        /// <summary>
+        /// 解析被简单算法加密的txt文档
+        /// </summary>
+        /// <param name="fs"></param>
+        /// <returns></returns>
+        private static RuleDataModel CreatFromeCryptFile(FileStream fs)
+        {
+            var reader = new BinaryReader(fs, Encoding.Unicode, true);
+            var outsr = new MemoryStream((int)fs.Length + 2);
+            var writer = new BinaryWriter(outsr, Encoding.Unicode, true);
+            writer.Write('\xFEFF');
+            int c;
+            while ((c = reader.Read()) != -1)
+            {
+                c = (c & 0xAAAA) >> 1 | (c & 0x5555) << 1;
+                writer.Write((char)c);
+            }
+            reader.Close();
+            writer.Close();
+            fs.Close();
+            return CreatFromTextFile(outsr, Encoding.Unicode);
+        }
+
         /// <summary>
         /// 解析普通文本文档
         /// </summary>
         /// <param name="fs"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        private static RuleDataModel CreatFromTextFile(FileStream fs, Encoding encoding)
+        private static RuleDataModel CreatFromTextFile(Stream fs, Encoding encoding)
         {
             List<string> lines = new List<string>();
             fs.Position = 0L;
@@ -55,7 +86,7 @@ namespace Li.Krkr.krkrfgformatWPF.Servises
 
             RuleDataModel data = new RuleDataModel()
             {
-                OriginalFilePath = fs.Name,
+                OriginalFilePath = "",
                 FileHander = lines[0],
                 FgLarge = LineDataModel.CreatFromLineString(lines[1])
             };
@@ -72,7 +103,7 @@ namespace Li.Krkr.krkrfgformatWPF.Servises
         /// <param name="fs"></param>
         /// <param name="br"></param>
         /// <returns></returns>
-        private static RuleDataModel CreatFromeBinaryFile(FileStream fs, BinaryReader br)
+        private static RuleDataModel CreatFromeZlibFile(FileStream fs, BinaryReader br)
         {
             List<string> lines = new List<string>();
             var dataLength = br.ReadInt32();

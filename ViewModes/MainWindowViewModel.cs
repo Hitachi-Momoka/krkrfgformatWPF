@@ -41,7 +41,7 @@ namespace Li.Krkr.krkrfgformatWPF.ViewModes
             set
             {
                 _selectItemTmp = value;
-                if (string.IsNullOrEmpty(RulePath))
+                if (string.IsNullOrEmpty(RulePath) && this.SelectItemTmp != null)
                 {
                     RulePath = GetRulePath(SelectItemTmp.SelectedItem.ToString());
                     SavePath = CreatDefultSavePath(SelectItemTmp.SelectedItem.ToString());

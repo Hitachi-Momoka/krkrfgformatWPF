@@ -243,9 +243,9 @@ namespace Li.Drawing.Wpf
             } 
         }
         public DrawingGroup Group { set; get; } = new DrawingGroup() { Opacity = 1 };
-        public PictureMixer(int width,int height)
+        public PictureMixer()
         {
-            this.Group.Children.Add(new ImageDrawing(WPFPictureHelper.CreatAnEmptyBitmapSourceBySize(width, height), new Rect(0, 0, width, height)));
+            //this.Group.Children.Add(new ImageDrawing(WPFPictureHelper.CreatAnEmptyBitmapSourceBySize(width, height), new Rect(0, 0, width, height)));
         }
 
         public void AddPicture(BitmapSource bitmapSource, Rect rect, int opacity)

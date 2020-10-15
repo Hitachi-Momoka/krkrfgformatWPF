@@ -1,4 +1,4 @@
-﻿using Li.Krkr.krkrfgformatWPF;
+using Li.Krkr.krkrfgformatWPF;
 using Li.Krkr.krkrfgformatWPF.ViewModes;
 using System;
 using System.Collections.Generic;
@@ -105,7 +105,7 @@ namespace Li.Krkr.Fgformat
                     listBox.ItemsSource = null;
                 }
             }
-            slider1.Value = slider1.Minimum;
+            //slider1.Value = slider1.Minimum;
         }
 
         private void clearSelected_Click(object sender, RoutedEventArgs e)
@@ -118,19 +118,19 @@ namespace Li.Krkr.Fgformat
                     listBox.SelectedIndex = -1;
                 }
             }
-            slider1.Value = slider1.Minimum;
+            //slider1.Value = slider1.Minimum;
         }
 
         private void g1_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if(e.Delta>0)
+            if (e.Delta > 0)
             {
                 if (slider1.Value + 50 <= slider1.Maximum)
                     slider1.Value += 50;
                 else
                     slider1.Value = slider1.Maximum;
             }
-            if(e.Delta<0)
+            if (e.Delta < 0)
             {
                 if (slider1.Value - 50 >= slider1.Minimum)
                     slider1.Value -= 50;
@@ -140,16 +140,18 @@ namespace Li.Krkr.Fgformat
             e.Handled = true;
         }
 
-        private void imageboxMouseDoubleClick(object sender, MouseButtonEventArgs e)
+
+        private void ImageViewerDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(!this.isFullWindow)
+            if (!this.isFullWindow)
             {
                 this.picBoxBorder.Visibility = Visibility.Collapsed;
                 Grid.SetColumn(this.g1, 0);
                 Grid.SetColumnSpan(this.g1, 2);
                 this.controlGrid.Visibility = Visibility.Collapsed;
                 this.isFullWindow = true;
-            }else
+            }
+            else
             {
                 this.controlGrid.Visibility = Visibility.Visible;
                 Grid.SetColumn(this.g1, 1);
@@ -157,6 +159,7 @@ namespace Li.Krkr.Fgformat
                 this.picBoxBorder.Visibility = Visibility.Visible;
                 this.isFullWindow = false;
             }
+
         }
     }
 }

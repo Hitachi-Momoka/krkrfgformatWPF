@@ -9,3 +9,5 @@ KRKR2/Z引擎的分散立绘和成工具的WPF版本。MVVM模式练手写的。
 批量合成等什么时候写出了支持info文件的功能才能。
 
 有用到[Prism](https://github.com/PrismLibrary/Prism/tree/master/src/Prism.Core)不过不会用git就直接上传了原文件。
+
+引用了[HandyControl](https://github.com/HandyOrg/HandyControl)
